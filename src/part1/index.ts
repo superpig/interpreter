@@ -2,6 +2,7 @@
 enum TokenType {
   INTEGER = 'INTEGER',
   PLUS = 'PLUS',
+  SUBTRACT = 'SUBTRACT',
   EOF = 'EOF'
 }
 
@@ -40,7 +41,7 @@ export default class Interpreter {
       return new Token(TokenType.EOF, null)
     }
 
-    let currentChar = text.charAt(this.pos)
+    let currentChar = this.getValidChar(text)
     if (this.isDigit(currentChar)) {
       while (this.isDigit(text.charAt(++this.pos))) {
         currentChar += text.charAt(this.pos)
@@ -55,13 +56,29 @@ export default class Interpreter {
       return token
     }
 
+    if (currentChar === '-') {
+      const token = new Token(TokenType.SUBTRACT, currentChar)
+      this.pos++
+      return token
+    }
+
     this.error()
+  }
+  getValidChar(text: string): string {
+    let currentChar: string = text.charAt(this.pos)
+    while(this.isWhitespace(currentChar)) {
+      currentChar = text.charAt(++this.pos)
+    }
+    return currentChar
+  }
+  isWhitespace(char: string) {
+    return /\s/.test(char)
   }
   isDigit(char: string): boolean {
     return char && !isNaN(+char)
   }
   error(): void {
-    throw new Error('Error parsing input')
+    throw new Error(`Error parsing input: ${this.currentToken}`)
   }
   eat(tokenType: TokenType): void {
     if (this.currentToken.type === tokenType) {
@@ -77,12 +94,18 @@ export default class Interpreter {
     this.eat(TokenType.INTEGER)
 
     const op: Token = this.currentToken
-    this.eat(TokenType.PLUS)
+    if (op.type === TokenType.PLUS) {
+      this.eat(TokenType.PLUS)
+    } else {
+      this.eat(TokenType.SUBTRACT)
+    }
 
     const right: Token = this.currentToken
     this.eat(TokenType.INTEGER)
 
-    const result: number = Number(left.value) + Number(right.value)
+    const leftValue: number = left.value
+    const rightValue: number = right.value
+    const result: number = op.type === TokenType.PLUS ? leftValue + rightValue : leftValue - rightValue
     return result
   }
 }

@@ -40,10 +40,12 @@ export default class Interpreter {
       return new Token(TokenType.EOF, null)
     }
 
-    const currentChar = text.charAt(this.pos)
+    let currentChar = text.charAt(this.pos)
     if (this.isDigit(currentChar)) {
+      while (this.isDigit(text.charAt(++this.pos))) {
+        currentChar += text.charAt(this.pos)
+      }
       const token = new Token(TokenType.INTEGER, +currentChar)
-      this.pos++
       return token
     }
 
@@ -56,7 +58,7 @@ export default class Interpreter {
     this.error()
   }
   isDigit(char: string): boolean {
-    return !isNaN(+char)
+    return char && !isNaN(+char)
   }
   error(): void {
     throw new Error('Error parsing input')
@@ -71,16 +73,16 @@ export default class Interpreter {
   expr(): number {
     this.currentToken = this.getNextToken()
 
-    const left:Token = this.currentToken
+    const left: Token = this.currentToken
     this.eat(TokenType.INTEGER)
 
-    const op:Token = this.currentToken
+    const op: Token = this.currentToken
     this.eat(TokenType.PLUS)
 
-    const right:Token = this.currentToken
+    const right: Token = this.currentToken
     this.eat(TokenType.INTEGER)
 
-    const result:number = Number(left.value) + Number(right.value)
+    const result: number = Number(left.value) + Number(right.value)
     return result
   }
 }

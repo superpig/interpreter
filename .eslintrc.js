@@ -10,7 +10,10 @@ module.exports = {
         "prettier",
         "prettier/@typescript-eslint"
     ],
-    rules: {},
+    rules: {
+      "semi": "off",
+      "@typescript-eslint/semi": ["error"]
+    },
     parserOptions: {
       parser: '@typescript-eslint/parser'
     },
@@ -25,4 +28,3 @@ module.exports = {
       }
     ]
   }
-  

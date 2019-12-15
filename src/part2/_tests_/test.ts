@@ -13,12 +13,12 @@ describe('Interpreter', () => {
     const interpreter = new Interpreter('11 + 9')
     expect(interpreter.expr()).toBe(20)
   })
-  test(' 11  +  9 ', () => {
-    const interpreter = new Interpreter(' 11  +  9 ')
+  test('11*9', () => {
+    const interpreter = new Interpreter('11*9')
     expect(interpreter.expr()).toBe(20)
   })
-  test(' 11  -  9 ', () => {
-    const interpreter = new Interpreter(' 11  -  9 ')
+  test('99/9', () => {
+    const interpreter = new Interpreter('99/9')
     expect(interpreter.expr()).toBe(2)
   })
   test('throw error', () => {

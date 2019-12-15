@@ -3,7 +3,9 @@ enum TokenType {
   INTEGER = 'INTEGER',
   PLUS = 'PLUS',
   MINUS = 'MINUS',
-  EOF = 'EOF'
+  EOF = 'EOF',
+  MULTIPLY = 'MULTIPLY',
+  DIVIDE = 'DIVIDE',
 }
 
 /*
@@ -40,12 +42,10 @@ export default class Interpreter {
     const text = this.text
 
     while (this.currentChar !== '') {
-      console.log(this.currentChar)
       if (this.isWhitespace(this.currentChar)) {
         this.skipWhitespace()
         continue
       }
-      console.log(this.currentChar)
 
       if (this.isDigit(this.currentChar)) {
         return new Token(TokenType.INTEGER, this.getInteger())
@@ -59,6 +59,18 @@ export default class Interpreter {
 
       if (this.currentChar === '-') {
         const token = new Token(TokenType.MINUS, this.currentChar)
+        this.advance()
+        return token
+      }
+
+      if (this.currentChar === '*') {
+        const token = new Token(TokenType.MULTIPLY, this.currentChar)
+        this.advance()
+        return token
+      }
+
+      if (this.currentChar === '/') {
+        const token = new Token(TokenType.DIVIDE, this.currentChar)
         this.advance()
         return token
       }
@@ -110,10 +122,21 @@ export default class Interpreter {
     this.eat(TokenType.INTEGER)
 
     const op: Token = this.currentToken
-    if (op.type === TokenType.PLUS) {
-      this.eat(TokenType.PLUS)
-    } else {
-      this.eat(TokenType.MINUS)
+    switch (op.type) {
+      case TokenType.PLUS:
+        this.eat(TokenType.PLUS)
+        break;
+      case TokenType.MINUS:
+        this.eat(TokenType.MINUS)
+        break;
+      case TokenType.MULTIPLY:
+        this.eat(TokenType.MULTIPLY)
+        break;
+      case TokenType.DIVIDE:
+        this.eat(TokenType.DIVIDE)
+        break;
+      default:
+        break;
     }
 
     const right: Token = this.currentToken
@@ -121,7 +144,24 @@ export default class Interpreter {
 
     const leftValue: number = left.value
     const rightValue: number = right.value
-    const result: number = op.type === TokenType.PLUS ? leftValue + rightValue : leftValue - rightValue
+
+    let result: number;
+    switch (op.type) {
+      case TokenType.PLUS:
+        result = leftValue + rightValue
+        break;
+      case TokenType.MINUS:
+        result = leftValue - rightValue
+        break;
+      case TokenType.MULTIPLY:
+        result = leftValue * rightValue
+        break;
+      case TokenType.DIVIDE:
+        result = leftValue / rightValue
+        break;
+      default:
+        break;
+    }
     return result
   }
 }

@@ -2,7 +2,7 @@
 enum TokenType {
   INTEGER = 'INTEGER',
   PLUS = 'PLUS',
-  SUBTRACT = 'SUBTRACT',
+  MINUS = 'MINUS',
   EOF = 'EOF'
 }
 
@@ -28,48 +28,64 @@ export default class Interpreter {
   private text: string = ''
   private pos: number = 0
   private currentToken: Token = null
+  private currentChar: string = ''
 
   constructor(text: string) {
     this.text = text
     this.pos = 0
     this.currentToken = null
+    this.currentChar = this.text.charAt(this.pos)
   }
   getNextToken(): Token {
     const text = this.text
 
-    if (this.pos > this.text.length - 1) {
-      return new Token(TokenType.EOF, null)
-    }
-
-    let currentChar = this.getValidChar(text)
-    if (this.isDigit(currentChar)) {
-      while (this.isDigit(text.charAt(++this.pos))) {
-        currentChar += text.charAt(this.pos)
+    while (this.currentChar !== '') {
+      console.log(this.currentChar)
+      if (this.isWhitespace(this.currentChar)) {
+        this.skipWhitespace()
+        continue
       }
-      const token = new Token(TokenType.INTEGER, +currentChar)
-      return token
-    }
+      console.log(this.currentChar)
 
-    if (currentChar === '+') {
-      const token = new Token(TokenType.PLUS, currentChar)
-      this.pos++
-      return token
-    }
+      if (this.isDigit(this.currentChar)) {
+        return new Token(TokenType.INTEGER, this.getInteger())
+      }
 
-    if (currentChar === '-') {
-      const token = new Token(TokenType.SUBTRACT, currentChar)
-      this.pos++
-      return token
-    }
+      if (this.currentChar === '+') {
+        const token = new Token(TokenType.PLUS, this.currentChar)
+        this.advance()
+        return token
+      }
 
-    this.error()
+      if (this.currentChar === '-') {
+        const token = new Token(TokenType.MINUS, this.currentChar)
+        this.advance()
+        return token
+      }
+      this.error()
+    }
+    return new Token(TokenType.EOF, null)
   }
-  getValidChar(text: string): string {
-    let currentChar: string = text.charAt(this.pos)
-    while (this.isWhitespace(currentChar)) {
-      currentChar = text.charAt(++this.pos)
+  getInteger(): number {
+    let result = ''
+    while (this.currentChar !== '' && this.isDigit(this.currentChar)) {
+      result += this.currentChar
+      this.advance()
     }
-    return currentChar
+    return Number(result)
+  }
+  advance(): void {
+    this.pos++
+    if (this.pos > this.text.length - 1) {
+      this.currentChar = ''
+    } else {
+      this.currentChar = this.text.charAt(this.pos)
+    }
+  }
+  skipWhitespace(): void {
+    while (this.currentChar && this.isWhitespace(this.currentChar)) {
+      this.advance()
+    }
   }
   isWhitespace(char: string) {
     return /\s/.test(char)
@@ -97,7 +113,7 @@ export default class Interpreter {
     if (op.type === TokenType.PLUS) {
       this.eat(TokenType.PLUS)
     } else {
-      this.eat(TokenType.SUBTRACT)
+      this.eat(TokenType.MINUS)
     }
 
     const right: Token = this.currentToken

@@ -135,7 +135,7 @@ export default class Interpreter {
     }
     return result
   }
-  check(type: TokenType): void {
+  eatOperation(type: TokenType): void {
     switch (type) {
       case TokenType.PLUS:
         this.eat(TokenType.PLUS)
@@ -160,7 +160,7 @@ export default class Interpreter {
     this.eat(TokenType.INTEGER)
 
     const op: Token = this.currentToken
-    this.check(op.type)
+    this.eatOperation(op.type)
 
     const right: Token = this.currentToken
     this.eat(TokenType.INTEGER)
@@ -168,6 +168,14 @@ export default class Interpreter {
     const leftValue: number = left.value
     const rightValue: number = right.value
 
-    return this.calculate(op.type, leftValue, rightValue)
+    let result: number = this.calculate(op.type, leftValue, rightValue)
+    while (this.currentToken.type === TokenType.PLUS || this.currentToken.type === TokenType.MINUS) {
+      const type = this.currentToken.type
+      this.eatOperation(type)
+      result = this.calculate(type, result, this.currentToken.value)
+      this.eat(TokenType.INTEGER)
+    }
+
+    return result
   }
 }

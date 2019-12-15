@@ -156,19 +156,8 @@ export default class Interpreter {
   expr(): number {
     this.currentToken = this.getNextToken()
 
-    const left: Token = this.currentToken
+    let result: number = this.currentToken.value
     this.eat(TokenType.INTEGER)
-
-    const op: Token = this.currentToken
-    this.eatOperation(op.type)
-
-    const right: Token = this.currentToken
-    this.eat(TokenType.INTEGER)
-
-    const leftValue: number = left.value
-    const rightValue: number = right.value
-
-    let result: number = this.calculate(op.type, leftValue, rightValue)
     while (this.currentToken.type === TokenType.PLUS || this.currentToken.type === TokenType.MINUS) {
       const type = this.currentToken.type
       this.eatOperation(type)

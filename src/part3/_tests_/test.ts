@@ -13,6 +13,10 @@ describe('Interpreter', () => {
     const interpreter = new Interpreter('11 + 9')
     expect(interpreter.expr()).toBe(20)
   })
+  test('1+2+3-1-3', () => {
+    const interpreter = new Interpreter('1+2+3-1-3')
+    expect(interpreter.expr()).toBe(2)
+  })
   test('throw error', () => {
     expect(() => {
       const interpreter = new Interpreter('1 + a')

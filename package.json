@@ -4,8 +4,8 @@
   "description": "a simple Pascal interpreter with Typescript language",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --respawn --transpileOnly src/part6/calc.ts",
-    "debug": "ts-node-dev --inspect --respawn --transpileOnly src/part6/calc.ts",
+    "start": "ts-node-dev --respawn --transpileOnly src/part7/calc.ts",
+    "debug": "ts-node-dev --inspect --respawn --transpileOnly src/part7/calc.ts",
     "style": "run-s style:**",
     "style:prettier": "prettier --write \"src/**/*.ts\"",
     "sytle:lint": "eslint src --fix --ext .ts,.tsx",

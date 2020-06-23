@@ -1,7 +1,7 @@
 import { Lexer } from '../parser'
 import Interpreter from '../interpreter'
 
-describe('parser', () => {
+describe('interpreter', () => {
   function makeInterpreter(text: string) {
     const lexer = new Lexer(text)
     const interpreter = new Interpreter(lexer)

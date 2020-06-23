@@ -64,6 +64,21 @@ describe('interpreter', () => {
     const result = interpreter.expr()
     expect(result).toBe(17)
   })
+  test('test_expression5', () => {
+    const interpreter = makeInterpreter('7 + 3 * (10 / (12 / (3 + 1) - 1))')
+    const result = interpreter.expr()
+    expect(result).toBe(22)
+  })
+  test('test_expression5', () => {
+    const interpreter = makeInterpreter('7 + 3 * (10 / (12 / (3 + 1) - 1)) / (2 + 3) - 5 - 3 + (8)')
+    const result = interpreter.expr()
+    expect(result).toBe(10)
+  })
+  test('test_expression6', () => {
+    const interpreter = makeInterpreter('7 + (((3 + 2)))')
+    const result = interpreter.expr()
+    expect(result).toBe(12)
+  })
   test('test_expression_invalid_syntax', () => {
     expect(() => {
       const interpreter = makeInterpreter('10 *')

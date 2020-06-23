@@ -1,7 +1,6 @@
 import { Lexer } from './lexer'
 import Interpreter from './interpreter'
 import * as readlineSync from 'readline-sync'
-
 ;(function() {
   while (true) {
     const text = readlineSync.question('calc> ')

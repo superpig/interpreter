@@ -22,7 +22,7 @@ export default class LISPTranslator {
   }
 }
 
-if (process.env.name == '__main__'){
+if (process.env.name == '__main__') {
   ;(function() {
     while (true) {
       const text = readlineSync.question('input> ')

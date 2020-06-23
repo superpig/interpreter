@@ -2,7 +2,7 @@ import Parser, { Num, BinOp, AST } from './parser'
 import { TokenType } from './token'
 const { PLUS, MINUS, MUL, DIV } = TokenType
 
-abstract class NodeVisitor {
+export abstract class NodeVisitor {
   abstract visit(node: AST)
 }
 

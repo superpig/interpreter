@@ -2,23 +2,7 @@ import Lexer from '../spi/lexer'
 import { TokenType } from '../spi/token'
 import Interpreter from '../spi/interpreter'
 import Parser from '../spi/parser'
-const {
-  BEGIN,
-  END,
-  ID,
-  ASSIGN,
-  SEMI,
-  DOT,
-  INTEGER_DIV,
-  FLOAT_DIV,
-  REAL_CONST,
-  INTEGER_CONST,
-  MINUS,
-  PLUS,
-  MUL,
-  LPAREN,
-  RPAREN
-} = TokenType
+const { BEGIN, END, ID, ASSIGN, SEMI, DOT, INTEGER_DIV, FLOAT_DIV, REAL_CONST, INTEGER_CONST, MINUS, PLUS, MUL, LPAREN, RPAREN } = TokenType
 
 describe('lexer_test', () => {
   function makeLexer(text: any) {

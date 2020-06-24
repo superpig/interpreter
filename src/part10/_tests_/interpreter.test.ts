@@ -9,20 +9,15 @@ const {
   ASSIGN,
   SEMI,
   DOT,
-  PROGRAM,
-  VAR,
   INTEGER_DIV,
   FLOAT_DIV,
-  INTEGER,
-  REAL,
   REAL_CONST,
   INTEGER_CONST,
   MINUS,
   PLUS,
   MUL,
   LPAREN,
-  RPAREN,
-  COMMA,
+  RPAREN
 } = TokenType
 
 describe('lexer_test', () => {
@@ -46,7 +41,7 @@ describe('lexer_test', () => {
       ['number', ID, 'number'],
       [';', SEMI, ';'],
       ['BEGIN', BEGIN, 'BEGIN'],
-      ['END', END, 'END'],
+      ['END', END, 'END']
     ]
     for (const [text, type, value] of records) {
       const lexer = makeLexer(text)
@@ -97,7 +92,7 @@ describe('interpreter_test', () => {
     const records = [
       ['3.14', 3.14],
       ['2.14 + 7 * 4', 30.14],
-      ['7.14 - 8 / 4', 5.14],
+      ['7.14 - 8 / 4', 5.14]
     ]
     for (const [expr, result] of records) {
       const text = `

@@ -69,7 +69,6 @@ export class Type extends AST {
   }
 }
 
-
 export class BinOp extends AST {
   public left: AST
   public op: Token
@@ -199,7 +198,7 @@ export default class Parser {
    * 文法规则 variable_declaration : ID (COMMA ID)* COLON type_spec
    */
   private variableDeclaration() {
-    const varNodes = [ new Var(this.currentToken) ]
+    const varNodes = [new Var(this.currentToken)]
     this.eat(ID)
     while (this.currentToken.type === COMMA) {
       this.eat(COMMA)
@@ -208,7 +207,7 @@ export default class Parser {
     }
     this.eat(COLON)
     const typeNode = this.typeSpec()
-    const varDeclarations = varNodes.map(varNode => {
+    const varDeclarations = varNodes.map((varNode) => {
       return new VarDecl(varNode, typeNode)
     })
     return varDeclarations
@@ -318,7 +317,7 @@ export default class Parser {
    */
   private term(): AST {
     let node = this.factor()
-    const oprators = [ MUL, INTEGER_DIV, FLOAT_DIV ]
+    const oprators = [MUL, INTEGER_DIV, FLOAT_DIV]
     while (oprators.includes(this.currentToken.type)) {
       const token = this.currentToken
       if (token.type === MUL) {

@@ -98,4 +98,37 @@ describe('interpreter_test', () => {
       expect(globals.a).toBe(result)
     }
   })
+  test('test_expression_invalid_syntax1', () => {
+    expect(() => {
+      const interpreter = makeInterpreter('BEGIN a := 10 * ; END.')
+      interpreter.interpret()
+    }).toThrow()
+  })
+  test('test_expression_invalid_syntax2', () => {
+    expect(() => {
+      const interpreter = this.makeInterpreter('BEGIN a := 1 (1 + 2); END.')
+      interpreter.interpret()
+    }).toThrow()
+  })
+  test('test_statements', () => {
+    const text = `
+BEGIN
+    BEGIN
+        number := 2;
+        a := number;
+        b := 10 * a + 10 * number / 4;
+        c := a - - b
+    END;
+    x := 11;
+END.
+`
+    const interpreter = makeInterpreter(text)
+    interpreter.interpret()
+    const globals = interpreter.GLOBAL_SCOPE
+    expect(globals.number).toBe(2)
+    expect(globals.a).toBe(2)
+    expect(globals.b).toBe(25)
+    expect(globals.c).toBe(27)
+    expect(globals.x).toBe(11)
+  })
 })

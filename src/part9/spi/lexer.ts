@@ -4,7 +4,7 @@ const { BEGIN, END, ID, ASSIGN, SEMI, DOT } = TokenType
 
 const RESERVED_KEYWORDS = {
   BEGIN: new Token(BEGIN, 'BEGIN'),
-  END: new Token(END, 'END'),
+  END: new Token(END, 'END')
 }
 /*
  * 词法分析器
@@ -41,7 +41,7 @@ export default class Lexer {
 
       if (this.currentChar === ';') {
         this.advance()
-        return new Token(SEMI, ';');
+        return new Token(SEMI, ';')
       }
 
       if (this.currentChar === '-') {
@@ -82,7 +82,7 @@ export default class Lexer {
 
       if (this.currentChar === '.') {
         this.advance()
-        return new Token(DOT, '.');
+        return new Token(DOT, '.')
       }
 
       this.error()
@@ -132,7 +132,7 @@ export default class Lexer {
     return /^[0-9a-zA-Z]*$/.test(str)
   }
   private isAlpha(char: string): boolean {
-    return /^[A-Z]$/i.test(char);
+    return /^[A-Z]$/i.test(char)
   }
   private peek() {
     const peekPos = this.pos + 1

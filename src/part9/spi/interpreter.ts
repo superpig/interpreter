@@ -12,7 +12,7 @@ export abstract class NodeVisitor {
 export default class Interpreter extends NodeVisitor {
   // 模拟符号表，存储变量的值
   public GLOBAL_SCOPE: {
-    [key: string]: number;
+    [key: string]: number
   } = {}
   private parser: Parser
   constructor(parser: Parser) {
@@ -78,7 +78,7 @@ export default class Interpreter extends NodeVisitor {
     const varName = node.value
     const val = this.GLOBAL_SCOPE[varName]
     if (typeof val === 'undefined') {
-      throw new Error(`variable ${varName} is undefined`);
+      throw new Error(`variable ${varName} is undefined`)
     } else {
       return val
     }
@@ -89,5 +89,4 @@ export default class Interpreter extends NodeVisitor {
   private visitNum(node: Num) {
     return node.value
   }
-
 }

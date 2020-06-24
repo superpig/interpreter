@@ -119,7 +119,7 @@ export default class Parser {
    */
   private statementList(): AST[] {
     const node = this.statement()
-    const result = [ node ]
+    const result = [node]
     while (this.currentToken.type === SEMI) {
       this.eat(SEMI)
       result.push(this.statement())

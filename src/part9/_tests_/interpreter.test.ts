@@ -58,9 +58,9 @@ describe('lexer_test', () => {
       ['number', ID, 'number'],
       [';', SEMI, ';'],
       ['BEGIN', BEGIN, 'BEGIN'],
-      ['END', END, 'END'],
+      ['END', END, 'END']
     ]
-    for (const [text, type, value ] of records) {
+    for (const [text, type, value] of records) {
       const lexer = makeLexer(text)
       const token = lexer.getNextToken()
       expect(token.type).toBe(type)
@@ -88,7 +88,7 @@ describe('interpreter_test', () => {
       ['- 3', -3],
       ['+ 3', 3],
       ['5 - - - + - 3', 8],
-      ['5 - - - + - (3 + 4) - +2', 10],
+      ['5 - - - + - (3 + 4) - +2', 10]
     ]
     for (const [expr, result] of records) {
       const text = `BEGIN a := ${expr} END.`

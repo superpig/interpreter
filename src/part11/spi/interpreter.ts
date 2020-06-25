@@ -31,30 +31,11 @@ export default class Interpreter extends NodeVisitor {
     }
   }
   public visit(node: AST) {
-    if (node instanceof BinOp) {
-      return this.visitBinOp(node)
-    } else if (node instanceof Num) {
-      return this.visitNum(node)
-    } else if (node instanceof UaryOp) {
-      return this.visitUnaryOp(node)
-    } else if (node instanceof Compound) {
-      return this.visitCompound(node)
-    } else if (node instanceof Assign) {
-      return this.visitAssign(node)
-    } else if (node instanceof NoOp) {
-      return this.visitNoOp(node)
-    } else if (node instanceof Var) {
-      return this.visitVar(node)
-    } else if (node instanceof Program) {
-      return this.visitProgram(node)
-    } else if (node instanceof Block) {
-      return this.visitBlock(node)
-    } else if (node instanceof VarDecl) {
-      return this.visitVarDecl(node)
-    } else if (node instanceof Type) {
-      return this.visitType(node)
+    const name = node && node.constructor.name
+    const visitMethod = `visit${name}`
+    if (this[visitMethod]) {
+      return this[visitMethod](node)
     } else {
-      const name = node && node.constructor.name
       throw new Error(`No visit${name} method`)
     }
   }
@@ -81,7 +62,7 @@ export default class Interpreter extends NodeVisitor {
       return this.visit(node.left) / this.visit(node.right)
     }
   }
-  private visitUnaryOp(node: UaryOp) {
+  private visitUaryOp(node: UaryOp) {
     const op = node.op.type
     if (op === PLUS) {
       return +this.visit(node.expr)

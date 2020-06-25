@@ -20,12 +20,12 @@ export default class Interpreter extends NodeVisitor {
     return this.visit(tree)
   }
   public visit(node: AST) {
-    if (node instanceof BinOp) {
-      return this.visitBinOp(node)
-    } else if (node instanceof Num) {
-      return this.visitNum(node)
+    const name = node && node.constructor.name
+    const visitMethod = `visit${name}`
+    if (this[visitMethod]) {
+      return this[visitMethod](node)
     } else {
-      throw new Error('No visit method')
+      throw new Error(`No visit${name} method`)
     }
   }
   private visitBinOp(node: BinOp) {

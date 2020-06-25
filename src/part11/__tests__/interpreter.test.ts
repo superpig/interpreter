@@ -162,30 +162,25 @@ describe('interpreter_test', () => {
 
   test('test_program', () => {
     const text = `
-      PROGRAM Part10;
+      PROGRAM Part11;
       VAR
-          number     : INTEGER;
-          a, b, c, x : INTEGER;
-          y          : REAL;
-      BEGIN {Part10}
-          BEGIN
-            number := 2;
-            a := number;
-            b := 10 * a + 10 * number DIV 4;
-            c := a - - b
-          END;
-          x := 11;
-          y := 20 / 7 + 3.14;
-      END.  {Part10}
+        number : INTEGER;
+        a, b   : INTEGER;
+        y      : REAL;
+      BEGIN {Part11}
+        number := 2;
+        a := number ;
+        b := 10 * a + 10 * number DIV 4;
+        y := 20 / 7 + 3.14
+      END.  {Part11}
     `
     const interpreter = makeInterpreter(text)
     interpreter.interpret()
     const globals = interpreter.GLOBAL_SCOPE
+    expect(Object.keys(globals).length).toBe(4)
     expect(globals.number).toBe(2)
     expect(globals.a).toBe(2)
     expect(globals.b).toBe(25)
-    expect(globals.c).toBe(27)
-    expect(globals.x).toBe(11)
     expect(globals.y).toBe(20 / 7 + 3.14)
   })
 })

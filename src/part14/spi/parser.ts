@@ -217,23 +217,23 @@ export default class Parser {
           this.eat(SEMI)
         }
       } else if (this.currentToken.type === PROCEDURE) {
-          this.eat(PROCEDURE)
-          const procedureName = this.currentToken.value
-          this.eat(ID)
-          let params: Param[] = []
+        this.eat(PROCEDURE)
+        const procedureName = this.currentToken.value
+        this.eat(ID)
+        let params: Param[] = []
 
-          // @ts-ignore
-          if (this.currentToken.type === LPAREN) {
-            this.eat(LPAREN)
-            params = this.formalParameterList()
-            this.eat(RPAREN)
-          }
-          this.eat(SEMI)
+        // @ts-ignore
+        if (this.currentToken.type === LPAREN) {
+          this.eat(LPAREN)
+          params = this.formalParameterList()
+          this.eat(RPAREN)
+        }
+        this.eat(SEMI)
 
-          const blockNode = this.block()
-          const procedureDecl = new ProcedureDecl(procedureName, blockNode, params)
-          declarations.push(procedureDecl)
-          this.eat(SEMI)
+        const blockNode = this.block()
+        const procedureDecl = new ProcedureDecl(procedureName, blockNode, params)
+        declarations.push(procedureDecl)
+        this.eat(SEMI)
       } else {
         break
       }

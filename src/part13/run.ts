@@ -1,7 +1,6 @@
 import Lexer from './spi/lexer'
 import Parser from './spi/parser'
 import SemanticAnalyzer from './spi/semanticAnalyzer'
-
 ;(function() {
   const text = `
     program SymTab6;

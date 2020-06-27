@@ -1,5 +1,6 @@
 import { NodeVisitor } from './interpreter'
 import { AST, BinOp, Num, UaryOp, Compound, Assign, NoOp, Var, Program, Block, VarDecl, ProcedureDecl, Type } from './parser'
+import { SemanticError, ErrorCode } from './error'
 
 class MySymbol {
   public name: string
@@ -149,7 +150,7 @@ export default class SemanticAnalyzer extends NodeVisitor {
     const varSymbol = new VarSymbol(varName, typeSymbol)
 
     if (this.currentScope.lookup(varName, true)) {
-      throw new Error(`Error: Duplicate identifier ${varName} found`)
+      this.error(ErrorCode.DUPLICATE_ID, node.varNode.token)
     }
 
     this.currentScope.define(varSymbol)
@@ -162,7 +163,7 @@ export default class SemanticAnalyzer extends NodeVisitor {
     const varName = node.value
     const varSymbol = this.currentScope.lookup(varName)
     if (!varSymbol) {
-      throw new ReferenceError(`Error: Symbol(identifier) not found ${varName}`)
+      this.error(ErrorCode.ID_NOT_FOUND, node.token)
     }
   }
   public visitProcedureDecl(node: ProcedureDecl) {
@@ -189,6 +190,13 @@ export default class SemanticAnalyzer extends NodeVisitor {
   }
   public visitType(node: Type) {
     // do nothing
+  }
+  private error(errorCode, token) {
+    throw new SemanticError(
+      errorCode,
+      token,
+      `${errorCode} -> ${token}`
+    )
   }
   private log(message: string) {
     if (process.env.log == 'open') {

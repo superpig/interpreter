@@ -462,10 +462,6 @@ export default class Parser {
   }
   private error(errorCode, token) {
     const message = `${errorCode} -> ${token}`
-    throw new ParserError(
-      errorCode,
-      token,
-      message
-    )
+    throw new ParserError(errorCode, token, message)
   }
 }

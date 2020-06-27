@@ -51,7 +51,7 @@ describe('parser_test', () => {
     return parser
   }
   test('test_expression_invalid_syntax_01', () => {
-    const text =`
+    const text = `
       PROGRAM Test;
       VAR
           a : INTEGER;

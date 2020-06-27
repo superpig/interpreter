@@ -55,12 +55,7 @@ export default class Lexer {
       }
 
       if (Object.values(TokenType).includes(this.currentChar as TokenType)) {
-        const token: Token = new Token(
-          this.currentChar as TokenType,
-          this.currentChar,
-          this.lineno,
-          this.column
-        )
+        const token: Token = new Token(this.currentChar as TokenType, this.currentChar, this.lineno, this.column)
         this.advance()
         return token
       }

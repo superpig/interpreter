@@ -3,7 +3,7 @@ import Parser from './spi/parser'
 import SemanticAnalyzer from './spi/semanticAnalyzer'
 import Interpreter from './spi/interpreter'
 ;(function() {
-  const text =`
+  const text = `
 PROGRAM Test;
 VAR
     a : INTEGER;

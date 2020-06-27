@@ -192,11 +192,7 @@ export default class SemanticAnalyzer extends NodeVisitor {
     // do nothing
   }
   private error(errorCode, token) {
-    throw new SemanticError(
-      errorCode,
-      token,
-      `${errorCode} -> ${token}`
-    )
+    throw new SemanticError(errorCode, token, `${errorCode} -> ${token}`)
   }
   private log(message: string) {
     if (process.env.log == 'open') {

@@ -4,7 +4,7 @@
   "description": "a simple Pascal interpreter with Typescript language",
   "main": "index.js",
   "scripts": {
-    "start": "name=__main__ log=open ts-node-dev --respawn --transpileOnly src/part15/run.ts",
+    "start": "name=__main__ ts-node-dev --respawn --transpileOnly src/part16/run.ts",
     "debug": "name=__main__ log=open ts-node-dev --inspect --respawn --transpileOnly src/part15/run.ts",
     "style": "run-s style:**",
     "style:prettier": "prettier --write \"src/**/*.ts\"",

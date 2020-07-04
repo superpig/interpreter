@@ -147,8 +147,7 @@ describe('SemanticAnalyzer_test', () => {
   })
 })
 
-
-export class TestCallStack{
+export class TestCallStack {
   private records: any[]
   constructor() {
     this.records = []
@@ -163,7 +162,6 @@ export class TestCallStack{
     return this.records[this.records.length - 1]
   }
 }
-
 
 describe('interpreter_test', () => {
   function makeInterpreter(text: string) {

@@ -3,7 +3,7 @@ import Parser from './spi/parser'
 import SemanticAnalyzer from './spi/semanticAnalyzer'
 import Interpreter from './spi/interpreter'
 ;(function() {
-  console.log(process.argv);
+  console.log(process.argv)
   const text = `
     program Main;
     var x, y : integer;

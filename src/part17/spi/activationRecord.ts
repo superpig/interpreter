@@ -1,4 +1,3 @@
-
 export class CallStack {
   private records: ActivationRecord[]
   constructor() {
@@ -44,7 +43,7 @@ export class ActivationRecord {
   public get(key: string) {
     return this.members.get(key)
   }
-  public set (key: string, value: any) {
+  public set(key: string, value: any) {
     this.members.set(key, value)
   }
   private setItem(key: string, value: any) {
@@ -54,9 +53,7 @@ export class ActivationRecord {
     return this.members.get(key)
   }
   public toString() {
-    const lines = [
-      `${this.nestingLevel}: ${this.type} ${this.name}`
-    ]
+    const lines = [`${this.nestingLevel}: ${this.type} ${this.name}`]
     for (const [key, value] of this.members.entries()) {
       lines.push(`    ${key}:   ${value}`)
     }

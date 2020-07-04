@@ -111,7 +111,7 @@ export default class Interpreter extends NodeVisitor {
   public visitProcedureCall(node: ProcedureCall) {
     // do nothing
   }
-  public log( message: string) {
+  public log(message: string) {
     if (process.env.LOG_STACK_SWITCH == 'open') {
       console.log(message)
     }

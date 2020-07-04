@@ -3,7 +3,6 @@ import { TokenType } from '../spi/token'
 import Interpreter from '../spi/interpreter'
 import Parser from '../spi/parser'
 import SemanticAnalyzer from '../spi/semanticAnalyzer'
-import { CallStack } from '../spi/activationRecord'
 
 const { BEGIN, END, ID, ASSIGN, SEMI, DOT, INTEGER_DIV, FLOAT_DIV, REAL_CONST, INTEGER_CONST, MINUS, PLUS, MUL, LPAREN, RPAREN } = TokenType
 

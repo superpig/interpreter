@@ -1,6 +1,6 @@
 import { Num, BinOp, AST, UaryOp, NoOp, Compound, Assign, Var, Program, Block, VarDecl, Type, ProcedureDecl, ProcedureCall } from './parser'
 import { TokenType } from './token'
-import { CallStack, ActivationRecord, ARType } from './activationRecord'
+import { CallStack, ActivationRecord, ARType } from './callStack'
 const { PLUS, MINUS, MUL, INTEGER_DIV, FLOAT_DIV } = TokenType
 
 export class NodeVisitor {

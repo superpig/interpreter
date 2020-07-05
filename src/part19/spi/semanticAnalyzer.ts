@@ -10,7 +10,7 @@ class MySymbol {
   constructor(name: string, type: any = null) {
     this.name = name
     this.type = type
-    this.scopeLevel = 0;
+    this.scopeLevel = 0
   }
 }
 
